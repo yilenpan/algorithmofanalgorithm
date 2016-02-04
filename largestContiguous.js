@@ -1,21 +1,33 @@
 /////////////////////////////////////////////////////////////
 // LARGEST CONTIGUOUS SUM
 // -----------------------------------------
-// What is the largest contiguous (row of numbers) sum of an array of digits?
+// If all numbers in the array are positive, we can safely assume
+// the largest contiguous sum of numbers would be the entire array
+// however, with negative numbers, if the runningCount dips below
+// 0, we can assume that any sum made after that number would be
+// less than the max.
 //
-// EX:
-// [1, 2, 3] => 6
-// [1, 2,-2, 3] => 4
-// [1, 2,-4, 1, 2, 3] => 6
-//
+// We can then safely reset the runningCount to 0 every time
+// the running count runs below 0.
 /////////////////////////////////////////////////////////////
 
 
 
 var largestContiguousSum = function (array) {
-  // TODO: Implement
+  var runningCount = 0;
+  // By initializing maxCount to -Infinity, we
+  // can ensure that any number in the array will be larger
+  var maxCount = -Infinity;
+  array.forEach(function (numbers) {
+    runningCount += numbers;
+    if (runningCount < 0) {
+      runningCount = 0;
+    }
+    maxCount = Math.max(runningCount, maxCount);
+  });
+  return maxCount;
 };
 
 
 var array = [10,22,3,4,-5,23,-100,5];
-console.log('Pass? ', largestContiguousSum(array) === 57);
+console.log(largestContiguousSum(array));

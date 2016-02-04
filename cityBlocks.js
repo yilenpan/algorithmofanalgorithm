@@ -1,29 +1,48 @@
-/////////////////////////////////////////////////////////////
-// City Blocks
-// --------------------------
-// Citizens are spread out over a 2d city grid represented by a 2d matrix.
-// Find the point on the grid that will require the least distance moved if
-// they were to all meet (movement is per citizen, so 2 people moving one block
-// is considered as covering a distance of 2).
-//
-/////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////
+// SOLUTION CODE
+//////////////////////////////////////////////////
+// To visualize, copy code into chrome console
+//////////////////////////////////////////////////
 
-var getOptimalMeetingPoint = function () {
-  // TODO: Implement
+// Optimal Meeting Point Algorithm:
+//
+// O(n) solution - iterate over the entire matrix - when we encounter
+// people, we keep a running median of the row and col.
+// At the end of the matrix, we return out the median row, and the median col
+//
+var getOptimalMeetingPoint = function (matrix) {
+  // init runningRow and runningCol and peopleCount
+  var runningRow = 0;
+  var runningCol = 0;
+  var peopleCount = 0;
+
+  for (var row = 0; row < matrix.length; row++) {
+    for (var col = 0; col < matrix[0].length; col++) {
+      // if there are people on the corner
+      if (matrix[row][col] !== 0) {
+        // add row * number of people on that corner
+        runningRow += row * matrix[row][col];
+        // add col * number of people on that corner
+        runningCol += col * matrix[row][col];
+        // add number of people to the running peopleCount
+        peopleCount += matrix[row][col];
+      }
+    }
+  }
+  // calculate the position in the matrix
+  matrix[Math.round(runningRow / peopleCount)][Math.round(runningCol / peopleCount)] = 'X';
+  return matrix;
 };
 
 
-/////////////////////////////////////////////////////////////
-// HELPERS
-/////////////////////////////////////////////////////////////
-// Take these!
-/////////////////////////////////////////////////////////////
-
-var cityBlockTestCases = range(10, 0)
-  .map(function () {
-    return buildMatrix(9, 15);
-  });
-
+//////////////////////////////////////////////////
+// TEST CASES
+//////////////////////////////////////////////////
+range(10, 0).map(function () {
+  return buildMatrix(9, 15);
+}).forEach(function (matrix) {
+  console.table(getOptimalMeetingPoint(matrix));
+});
 
 //////////////////////////////////////////////////
 // MATRIX BUILDER

@@ -1,21 +1,35 @@
 /////////////////////////////////////////////////////////////
-// Alphabetical Words
+// Rotated Binary Search
 // ----------------------------------------------------------
-// I have an array of words that are mostly alphabetical,
-// except they start somewhere in the middle of the alphabet,
-// reach the end, and then start from the beginning of the
-// alphabet.
+// A binary search algorithm is reliant on a sorted array
+// however, in a rotated sorted array, an unknown number of
+// elements have been shifted off the end and put in front.
 //
-// In other words, this is an alphabetically ordered array
-// that has been "rotated." For example:
-// ['dog','eagle','falcon', /*PIVOT*/ 'apple','bear','cat']
+// This means that if we slice the array in half, we can
+// determine if 'half' an array is sorted by checking to see
+// if the begining of the half is smaller than it's end.
 //
-// Write a function that returns the index of the 'pivot'
-//
+// if it is sorted, then we discard it and recurse the unsorted
+// half up.
+// We keep doing that until there are just two items in the array.
+// if it's the pivot, we return that item
 /////////////////////////////////////////////////////////////
 
-var findPivotedWord = function (array, start, end) {
-  // TODO: IMPLEMENT
+var findPivot = function (array, start, end) {
+  start = start || 0;
+  end = end || array.length - 1;
+  var mid = Math.floor((end - start) / 2) + start;
+  // When start and end are next to each other
+  if (start === mid) {
+    // in a pivot, the item at index 'end' will always
+    // be smaller thant the item at index 'start'
+    return array[start] > array[end] ? start : null;
+  }
+  if (array[start] < array[mid]) {
+    return findPivot(array, mid, end);
+  } else {
+    return findPivot(array, start, mid);
+  }
 };
 
 /////////////////////////////////////////////////////////////
@@ -23,19 +37,19 @@ var findPivotedWord = function (array, start, end) {
 /////////////////////////////////////////////////////////////
 
 var tests = [{
-  inputs: ['cat','dog','eagle','falcon','goat','apple','bear'],
+  inputs: [3,4,5,6,7,1,2],
   expected: 4
 }, {
-  inputs: ['dog','eagle','falcon','goat','hope','apple','bear','cat'],
+  inputs: [4,5,6,7,8,1,2,3],
   expected: 4
 }, {
-  inputs: ['dog','eagle','falcon','goat','hope'],
+  inputs: [4,5,6,7,8],
   expected: null
 }, {
-  inputs: ['indigo','dog','eagle','falcon','goat','hope'],
+  inputs: [9,4,5,6,7,8],
   expected: 0
 }, {
-  inputs: ['dog','eagle','falcon','apple','bear','cat'],
+  inputs: [4,5,6,1,2,3],
   expected: 2
 }];
 
@@ -48,6 +62,8 @@ var expectToBeEqual = function (a, b) {
   return JSON.stringify(a) === JSON.stringify(b);
 };
 
-tests.forEach(function (test, i) {
-  console.log('Test #' + i + ' PASS? ', tester(test, findPivotedWord));
+tests.forEach(function (test) {
+  console.log('input: ', test.inputs);
+  console.log('expected: ', test.expected);
+  console.log(tester(test, findPivot));
 });
