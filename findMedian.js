@@ -106,8 +106,8 @@ minMaxHeap.prototype = {
 // Takes a compare function to define the child parent relationship
 // NOTE: Should also probably take a scoring function for future
 //       use cases
-// NOTE: Could also be accomplished by using two minHeaps, but
-//       multiplying the input by -1 when adding to the maxHeap
+// NOTE: Could also be accomplished by using two minHeaps, by
+//       multiplying the input by -1 when adding to the minHeap
 /////////////////////////////////////////////////////////////
 
 function BinaryHeap (compareFunction) {
