@@ -3,7 +3,10 @@ var http = require('http');
 var rawToJSON = function (rawBoard) {
   return rawBoard.split('\n').map(function (row) {
     return row.split('|').slice(1).slice(0, -1).reduce(function (row, col) {
-      return row.concat([col[1], col[5], col[9]]);
+      var a = col[1] === ' ' ? ' ' : parseInt(col[1]);
+      var b = col[5] === ' ' ? ' ' : parseInt(col[5]);
+      var c = col[9] === ' ' ? ' ' : parseInt(col[9]);
+      return row.concat([a, b, c]);
     }, []);
   }).filter(function (n, i) {
     return i % 2 !== 0 && n.length;
