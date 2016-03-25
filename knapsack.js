@@ -6,6 +6,8 @@
 // the stolen good also weighs a certain weight. This means that
 // the thief has to pick an optimal combination of items!
 //
+// The Thief can't pick the same item twice.
+//
 // What is the maximum worth of goods that the thief can steal?
 //
 /////////////////////////////////////////////////////////////
@@ -19,14 +21,18 @@ var knapsack = function (weights, maxWeight) {
 // TEST CASES
 /////////////////////////////////////////////////////////////
 
-
+//Keys are weights, values are stolen good's values.
 var weights = {
   10: 40,
   20: 55,
   1: 1,
-  5: 50
+  5: 50,
+  50: 147,
 };
 
 var maxWeight = 50;
 
 console.log('Pass? ', knapsack(weights, maxWeight) === 146);
+console.log('Pass? ', knapsack(weights, maxWeight) === 147);
+console.log('Pass? ', knapsack(weights, 60) === 198);
+
