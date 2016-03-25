@@ -30,9 +30,7 @@ var weights = {
   50: 147,
 };
 
-var maxWeight = 50;
-
-console.log('Pass? ', knapsack(weights, maxWeight) === 146);
-console.log('Pass? ', knapsack(weights, maxWeight) === 147);
+console.log('Pass? ', knapsack(weights, 31) === 106);
+console.log('Pass? ', knapsack(weights, 50) === 147);
 console.log('Pass? ', knapsack(weights, 60) === 198);
 
