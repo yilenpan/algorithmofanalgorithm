@@ -30,3 +30,11 @@ var waterBlocks = function (blocks) {
 //////////////////////////////////////////////////
 
 console.log('Pass? ', waterBlocks([1,5,2,3,5,6]) === 5);
+console.log('Pass? ', waterBlocks([1,5,2,3,5,6]) === 5);
+console.log('Pass? ', waterBlocks([10,10,10,10]) === 0);
+console.log('Pass? ', waterBlocks([0]) === 0);
+console.log('Pass? ', waterBlocks([0,0,10,0,0]) === 0);
+console.log('Pass? ', waterBlocks([0,1,2,3,4,5]) === 0);
+console.log('Pass? ', waterBlocks([5,4,3,2,1,0]) === 0);
+console.log('Pass? ', waterBlocks([10,0,10]) === 10);
+
